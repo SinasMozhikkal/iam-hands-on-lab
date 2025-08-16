@@ -10,15 +10,19 @@
 
 
 
-(No screenshot – task already completed earlier)
+| Parameter     | Value          |
+
+| ------------- | -------------- |
+
+| IP Address    | 192.168.247.10 |
+
+| Subnet Mask   | 255.255.255.0  |
+
+| Preferred DNS | 192.168.247.10 |
 
 
 
-IP Address : 192.168.247.10
-
-Subnet Mask : 255.255.255.0
-
-Preferred DNS : 192.168.247.10
+\*Note: Task already completed earlier\*
 
 
 
@@ -30,13 +34,19 @@ Preferred DNS : 192.168.247.10
 
 
 
-(No screenshot – task already completed earlier)
+| Parameter    | Value    |
+
+| ------------ | -------- |
+
+| Domain FQDN  | shin.lab |
+
+| NetBIOS Name | SHIN     |
 
 
 
-Domain FQDN : shin.lab
+\*Note: Task already completed earlier\*
 
-NetBIOS Name : SHIN
+
 
 ---
 
@@ -46,11 +56,15 @@ NetBIOS Name : SHIN
 
 
 
-IP Address : 192.168.247.20
+| Parameter     | Value          |
 
-Subnet Mask : 255.255.255.0
+| ------------- | -------------- |
 
-Preferred DNS : 192.168.247.10
+| IP Address    | 192.168.247.20 |
+
+| Subnet Mask   | 255.255.255.0  |
+
+| Preferred DNS | 192.168.247.10 |
 
 
 
@@ -62,73 +76,61 @@ Preferred DNS : 192.168.247.10
 
 
 
-System Properties → Change → Domain: shin.lab
+| Action        | Details            |
 
-Credentials used : SHIN\\administrator
+| ------------- | ------------------ |
 
+| Change Domain | shin.lab           |
 
-
-✅ Activity 5 – Create Organizational Units (OUs)
-
-
-
-Objective: Organize users into logical groups for easier management.
+| Credentials   | SHIN\\administrator |
 
 
 
-Steps:
+---
 
 
 
-Open Active Directory Users and Computers on DC1.
+\## ✅ Activity 5 – Create Organizational Units (OUs)
 
 
 
-Right-click your domain (shin.lab) → New → Organizational Unit.
+\*\*Objective:\*\* Organize users into logical groups.
 
 
 
-Create the following OUs:
+| OU Name |
+
+| ------- |
+
+| HR      |
+
+| IT      |
+
+| Finance |
 
 
 
-* HR
-* IT
-* Finance
+\*\*Steps:\*\*
 
 
 
-Created OUs:
+1\. Open Active Directory Users and Computers on DC1.
 
-HR
-
-IT
-
-Finance
+2\. Right-click the domain → New → Organizational Unit → Enter OU name.
 
 
 
-✅ Activity 6 – Create Users for Each OU
+---
 
 
 
-Objective: Add users to their respective OUs.
+\## ✅ Activity 6 – Create Users for Each OU
 
 
 
-Steps:
+\*\*Objective:\*\* Add users to their respective OUs.
 
 
-
-Navigate to each OU in Active Directory Users and Computers.
-
-
-
-Right-click the OU → New → User.
-
-
-
-Enter the following details:
 
 | OU      | Username | Login Name  |
 
@@ -142,28 +144,29 @@ Enter the following details:
 
 
 
-
-
-Set passwords and configure “User must change password at next logon” as needed.
-
-
-
-✅ Activity 7 – Create Security Groups and Add Users
+\*\*Steps:\*\*
 
 
 
-Objective: Group users for permissions management.
+1\. Navigate to the OU.
+
+2\. Right-click → New → User → Enter user details.
+
+3\. Set password and configure “User must change password at next logon”.
 
 
 
-Steps:
+---
 
 
 
-1. Open Active Directory Users and Computers.
-2. Navigate to the domain or relevant OU.
-3. Right-click → New → Group.
-4. Configure groups as follows:
+\## ✅ Activity 7 – Create Security Groups and Add Users
+
+
+
+\*\*Objective:\*\* Group users for permission management.
+
+
 
 | OU      | Group Name    | Members |
 
@@ -175,29 +178,95 @@ Steps:
 
 | Finance | Finance\\\_Team | Charlie |
 
-5.Add users to the groups: Right-click the group → Properties → Members → Add → Enter usernames → OK.
+
+
+\*\*Steps:\*\*
 
 
 
-✅ Activity 8 – Configure Group Policies (GPOs)
+1\. Navigate to the domain or OU.
+
+2\. Right-click → New → Group → Enter group details.
+
+3\. Add users: Right-click group → Properties → Members → Add → Enter usernames → OK.
 
 
 
-Objective: Apply policies to control settings for users in each OU.
+---
 
 
 
-Steps:
-
-1. Open Group Policy Management (gpmc.msc).
-2. Right-click Group Policy Objects → New → Name the GPO (e.g., HR\_Policy).
-3. Right-click the GPO → Edit → Configure policies as needed:
-
-* Password policies: Computer Configuration → Policies → Windows Settings → Security Settings → Account Policies → Password Policy
-* Logon scripts: User Configuration → Windows Settings → Scripts (Logon/Logoff)
-* Desktop restrictions: User Configuration → Administrative Templates → Desktop
+\## ✅ Activity 8 – Configure Group Policies (GPOs)
 
 
 
-1. Link the GPO to the corresponding OU: Right-click OU → Link an Existing GPO → Select the GPO → OK.
-2. Verify: Log in as a user from that OU, run gpupdate /force and check that the policy applies.
+\*\*Objective:\*\* Apply policies for users in each OU.
+
+
+
+\*\*Steps:\*\*
+
+
+
+1\. Open Group Policy Management (gpmc.msc).
+
+2\. Create new GPO → Name it (e.g., HR\\\_Policy).
+
+3\. Edit GPO to configure policies:
+
+
+
+&nbsp;  \* Password policies: Computer Configuration → Policies → Windows Settings → Security Settings → Account Policies → Password Policy
+
+&nbsp;  \* Logon scripts: User Configuration → Windows Settings → Scripts (Logon/Logoff)
+
+&nbsp;  \* Desktop restrictions: User Configuration → Administrative Templates → Desktop
+
+4\. Link GPO to OU: Right-click OU → Link an Existing GPO → Select GPO → OK.
+
+5\. Verify: Log in as a user from the OU → `gpupdate /force` → Confirm policy applied.
+
+
+
+---
+
+
+
+\## ✅ Activity 9 – Delegate OU Permissions
+
+
+
+\*\*Objective:\*\* Delegate specific administrative tasks without giving full domain privileges.
+
+
+
+| Step | Action                                                                                                             |
+
+| ---- | ------------------------------------------------------------------------------------------------------------------ |
+
+| 1    | Open Active Directory Users and Computers                                                                          |
+
+| 2    | Navigate to the OU (e.g., HR)                                                                                      |
+
+| 3    | Right-click OU → Delegate Control…                                                                                 |
+
+| 4    | Click Next on Welcome screen                                                                                       |
+
+| 5    | Click Add → Enter user/group (e.g., Alice or HR\\\_Team) → OK → Next                                                 |
+
+| 6    | Select common tasks → Create, delete, and manage user accounts → Next → Finish                                     |
+
+| 7    | Verify: Log in as delegated user → Open ADUC → Try creating user in delegated OU → Confirm cannot modify other OUs |
+
+
+
+\*\*Summary:\*\*
+
+
+
+\* OU permissions allow fine-grained control over administrative tasks.
+
+\* Delegation enforces least privilege in Active Directory.
+
+
+
